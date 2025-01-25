@@ -1,4 +1,5 @@
-// resolvers.js
+// Functions that handle the logic to fetch the requested data.
+
 const { v4: uuidv4 } = require('uuid');
 
 let books = [
@@ -12,7 +13,13 @@ const resolvers = {
     book: (_, { id }) => books.find((book) => book.id === id),
   },
   Mutation: {
-    addBook: (_, { title, author, year }) => {
+    // addBook: (_, { title, author, year }) => {
+    //   const newBook = { id: uuidv4(), title, author, year };
+    //   books.push(newBook);
+    //   return newBook;
+    // },
+    addBook: (_, { input }) => {
+      const { title, author, year } = input;
       const newBook = { id: uuidv4(), title, author, year };
       books.push(newBook);
       return newBook;
@@ -43,5 +50,3 @@ const resolvers = {
 };
 
 module.exports = resolvers;
-
-// Here, we define the resolver logic for queries and mutations, including generating unique IDs for new books and handling updates.

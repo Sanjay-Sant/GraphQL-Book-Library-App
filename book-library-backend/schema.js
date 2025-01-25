@@ -1,4 +1,5 @@
-// schema.js
+// This schema defines a Book type and Query and Mutation types for fetching, adding, updating, and deleting books.
+
 const { gql } = require('apollo-server');
 
 const typeDefs = gql`
@@ -14,12 +15,24 @@ const typeDefs = gql`
     book(id: ID!): Book
   }
 
-  type Mutation {
-    addBook(title: String!, author: String!, year: Int!): Book
-    updateBook(id: ID!, title: String, author: String, year: Int): Book
-    deleteBook(id: ID!): Book
-  }
+  input AddBookInput {
+  title: String!
+  author: String!
+  year: Int!
+}
+
+type Mutation {
+  addBook(input: AddBookInput!): Book
+  updateBook(id: ID!, title: String, author: String, year: Int): Book
+  deleteBook(id: ID!): Book
+}
+
 `;
 
+// type Mutation {
+//   addBook(title: String!, author: String!, year: Int!): Book
+//   updateBook(id: ID!, title: String, author: String, year: Int): Book
+//   deleteBook(id: ID!): Book
+// }
+
 module.exports = typeDefs;
-// This schema defines a Book type and Query and Mutation types for fetching, adding, updating, and deleting books.
